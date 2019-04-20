@@ -1,0 +1,48 @@
+<html>
+<head>
+  <title>Facebook</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+<body>
+  <div id="app" class="container py-5">
+    <div class="w-50 mx-auto">
+
+      <input
+      type="text"
+      class="form-control mb-2"
+      placeholder="Apa yang anda pikirkan"
+      v-model="input"
+      >
+
+      <button class="btn btn-sm btn-block btn-primary" @click="newStatus()" >Kirim</button>
+
+
+
+      <br><br>
+
+      <div class="media border p-3 mb-4" v-for="(stat, index) in status" :key="index">
+
+        <img src="https://bit.ly/2GcMqWq" class="mr-3 rounded-circle" style="width:60px;"/>
+
+        <div class="media-body">
+          <b>Anonym</b>
+          <p>{{ stat.text }}</p>
+          <button class="btn btn-light" @click="likeStatus(index)">
+            <span v-if="stat.like == false" style="color:#3e3e;">&#128153;</span>
+            <span v-if="stat.like == true" style="color:red">&#128153;</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="../vue.js"></script>
+  <script src="vuescript.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>4 April 2019</title>
+</head>
+<body>
+  <div id="app">
+    <h1> {{ judul }} </h1>
+    <p> {{ isi }} </p>
+
+    <input style="margin-bottom:20px;"
+      v-bind:placeholder="judul"
+    > <br>
+
+    <p  v-if="true">
+        Ini untuk v-if
+    </p> <br>
+
+    <ul>
+      <li v-for="title in titles">
+          {{ title }}
+      </li>
+    </ul>
+
+    <button v-on:click="ubahJudul('Dengan Value')" >Ganti Judul</button>
+    <button v-on:click="ubahIsi()">Ganti Isi</button>
+  </div>
+  <script src="../vue.js"></script>
+  <script src="vuescript.js"></script>
+</body>
+</html>
+
+
+<!-- v-on: bisa di ganti dengan @ -->
+<!-- v-bind bisa diganti dengan ; -->
+<!-- v-if muncul jika true, dan tidak jika false  -->
