@@ -2,25 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>New Order</title>
+    <title>Edit Order</title>
   </head>
   <body>
 
     <div id="app">
-        <h1>New Order</h1>
-        <form method="post" action="{{ route('orders.store') }}">
-          @csrf
+        <h1>Edit Order</h1>
+        <form method="post" action="{{ route('orders.update', $order->id) }}">
+          @csrf @method('PUT')
 
         <hr>
         <h3>Order</h3>
         <p>
           Table Number :
-          <input type="text" name="table_number"></p>
+          <input type="text" name="table_number" value="{{ $order->table_number }}"></p>
         <p>
           Payment :
           <select name="payment_id">
             @foreach ($payments as $payment)
-              <option value="{{ $payment->id }}"> {{ $payment->name }} </option>
+              <option value="{{ $payment->id }}" {{ $order->payment_id == $payment->id ? 'selected' : ''}}> {{ $payment->name }} </option>
             @endforeach
           </select></p>
 
@@ -67,7 +67,7 @@
         },
 
         methods: {
-            addDetail(){
+            addDetail() {
                var order = {product_id: 0, quantity: 1, subtotal: 0};
 
                this.orders.push(order);
@@ -87,7 +87,7 @@
         },
 
         computed:{
-            products(){
+            products() {
               var product = [];
 
               product[0]= 0;
@@ -99,15 +99,33 @@
               return product;
             },
 
-            total(){
+            total() {
                 // return this.orders.map( order => order.subtotal ).reduce( (prev, next) => prev + next );
                   //yg di atas dan di bawah ini sama saja, cma beda liat
                 return this.orders
                 .map( order => order.subtotal )
                 .reduce( (prev, next) => prev + next );
             }
-
         },
+
+        created() {
+            var orders = [];
+
+            @foreach ($order->orderDetail as $index => $detail)
+
+              orders[ {{$index}} ] = {
+
+                  product_id: {{ $detail->product_id }},
+                  quantity: {{ $detail->quantity }},
+                  subtotal: {{ $detail->subtotal }},
+
+              };
+
+            @endforeach
+
+            this.orders = orders;
+        }
+
     });
   </script>
   </body>
